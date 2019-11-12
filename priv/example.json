@@ -1,0 +1,136 @@
+{
+  "category": "program",
+  "category_sub": "program",
+  "line": 1,
+  "options": {
+    "functions": [],
+    "main_stm": [
+      {
+        "category": "stm",
+        "category_sub": "assignment",
+        "line": 1,
+        "options": {
+          "lhs": "x",
+          "rhs": {
+            "category": "exp",
+            "category_sub": "literal",
+            "line": 1,
+            "options": {
+              "number": 10
+            }
+          }
+        }
+      },
+      {
+        "category": "stm",
+        "category_sub": "assignment",
+        "line": 2,
+        "options": {
+          "lhs": "y",
+          "rhs": {
+            "category": "exp",
+            "category_sub": "literal",
+            "line": 2,
+            "options": {
+              "number": 1
+            }
+          }
+        }
+      },
+      {
+        "category": "stm",
+        "category_sub": "while",
+        "line": 3,
+        "options": {
+          "body": [
+            {
+              "category": "stm",
+              "category_sub": "assignment",
+              "line": 4,
+              "options": {
+                "lhs": "x",
+                "rhs": {
+                  "category": "exp",
+                  "category_sub": "sub",
+                  "line": 4,
+                  "options": {
+                    "lhs": {
+                      "category": "exp",
+                      "category_sub": "variable",
+                      "line": 4,
+                      "options": {
+                        "name": "x"
+                      }
+                    },
+                    "rhs": {
+                      "category": "exp",
+                      "category_sub": "literal",
+                      "line": 4,
+                      "options": {
+                        "number": 1
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "category": "stm",
+              "category_sub": "assignment",
+              "line": 5,
+              "options": {
+                "lhs": "y",
+                "rhs": {
+                  "category": "exp",
+                  "category_sub": "mul",
+                  "line": 5,
+                  "options": {
+                    "lhs": {
+                      "category": "exp",
+                      "category_sub": "variable",
+                      "line": 5,
+                      "options": {
+                        "name": "y"
+                      }
+                    },
+                    "rhs": {
+                      "category": "exp",
+                      "category_sub": "literal",
+                      "line": 5,
+                      "options": {
+                        "number": 2
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "condition": {
+            "category": "exp",
+            "category_sub": "leq",
+            "line": 3,
+            "options": {
+              "lhs": {
+                "category": "exp",
+                "category_sub": "literal",
+                "line": 3,
+                "options": {
+                  "number": 0
+                }
+              },
+              "rhs": {
+                "category": "exp",
+                "category_sub": "variable",
+                "line": 3,
+                "options": {
+                  "name": "x"
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
