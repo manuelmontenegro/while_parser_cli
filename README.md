@@ -15,6 +15,9 @@ INPUT_FILE
 --pretty
     Pretty-print JSON before output
 
+--cfg
+    Return the CFG of the main statement in the program
+
 -o [OUTPUT_FILE]
 --output [OUTPUT_FILE]
     Output file name. If defaults to standard output if not given.

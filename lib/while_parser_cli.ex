@@ -8,7 +8,8 @@ defmodule WhileParserCli do
   @cli_options [
     strict: [
       pretty: :boolean,
-      output: :string
+      output: :string,
+      cfg: :boolean
     ],
     aliases: [
       p: :pretty,
@@ -16,7 +17,7 @@ defmodule WhileParserCli do
     ]
   ]
 
-  @defaults [pretty: false, output: :stdout]
+  @defaults [pretty: false, output: :stdout, cfg: false]
 
   @usage """
   Usage: while_parser_cli INPUT_FILE [-o OUTPUT_FILE] [-p]
@@ -28,6 +29,9 @@ defmodule WhileParserCli do
     --pretty
         Pretty-print JSON before output
 
+    --cfg
+        Return the CFG of the main statement in the program
+
     -o [OUTPUT_FILE]
     --output [OUTPUT_FILE]
         Output file name. If defaults to standard output if not given.
@@ -36,7 +40,7 @@ defmodule WhileParserCli do
   def main(args) do
     with {:ok, opts} <- parse_options(args),
          {:ok, input_str} <- read_input_file(opts.input),
-         {:ok, json} <- WhileParser.parse_to_json(input_str, pretty: opts.pretty),
+         {:ok, json} <- parse_to_json(input_str, opts.cfg, opts.pretty),
          :ok <- write_output_file(json, opts.output) do
     else
       {:error, {:invalid_params, msg}} ->
@@ -44,8 +48,19 @@ defmodule WhileParserCli do
         IO.puts(@usage)
       {:error, err} when err in [:enoent, :eacces, :eisdir, :enotdir, :enomem] ->
         IO.puts("Error: #{:file.format_error(err)}")
-      _ ->
+      {:error, {:unsupported, _}}  ->
+        IO.puts("Error: unsupported operation in a CFG")
+        _ ->
         IO.puts(:stderr, "Unexpected result")
+    end
+  end
+
+  def parse_to_json(input_str, false, pretty) do
+    WhileParser.parse_to_json(input_str, pretty: pretty)
+  end
+  def parse_to_json(input_str, true, pretty) do
+    with {:ok, cfg, _} <- WhileParser.parse_to_cfg_json(input_str, pretty: pretty) do
+      {:ok, cfg}
     end
   end
 
